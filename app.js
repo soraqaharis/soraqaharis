@@ -106,21 +106,22 @@ app.post('/loginn', async (req, res)=>{
 })
 
 app.get('/verifyuser', async (req, res) => {
-  const token = req.cookies.token;
-  if(!token){
-      return res.status(422).json({message:'not found'})
-     }
-  try {
-      const decodes = await jwt.verify(token, process.env.SECRET_KEY)
-      const user = await User.findById(decodes._id)
-  if(!user){
-   return res.status(422).json({message:'no verify'})
-  }
-  } catch (error) {
-      res.status(500).json({message:'token error'})
-  }
-
-})
+    const token = req.cookies.token;
+    if (!token) {
+      return res.status(422).json({ message: 'Token not found' });
+    }
+    try {
+      const decoded = jwt.verify(token, process.env.SECRET_KEY);
+      const user = await User.findById(decoded._id);
+      if (!user) {
+        return res.status(422).json({ message: 'User not verified' });
+      }
+      res.status(200).json({ message: 'User verified', user }); // Added response when user is verified
+    } catch (error) {
+      res.status(500).json({ message: 'Token error', error });
+    }
+  });
+  
 
 app.get('/logout', (req, res) => {
   res.clearCookie('token');
