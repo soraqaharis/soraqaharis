@@ -18,19 +18,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-mongoose.connect('mongodb+srv://soraqaharis10in7:LpSH9r4r6prtroWx@cluster0.uqhbk50.mongodb.net/add')
+mongoose.connect('mongodb+srv://soraqaharis10in7:LpSH9r4r6prtroWx@cluster0.uqhbk50.mongodb.net/add', {
+    useNewUrlParser: true, useUnifiedTopology: true
+})
 .then(() => console.log('Connected to MongoDB'))
 .catch((err) => console.error('Failed to connect to MongoDB', err));
 
-app.get('/todoss', async (req, res)=>{
-    console.log('GET / request received');
-    try {
-        const todo = await Video.find();
-        res.status(200).json(todo)
-    } catch (error) {
-        res.status(500).json({ message: 'Error fetching todos', error });
-    }
-});
+
 
 
 
@@ -133,7 +127,15 @@ app.get('/logout', (req, res) => {
   res.status(200).json({ message: 'Logout successful' });
 });
 
-
+app.get('/todoss', async (req, res)=>{
+    console.log('GET / request received');
+    try {
+        const todo = await Video.find();
+        res.status(200).json(todo)
+    } catch (error) {
+        res.status(500).json({ message: 'Error fetching todos', error });
+    }
+});
 
 
 
