@@ -7,7 +7,7 @@ require('dotenv').config();
 const app = express()
 app.use(cookieParser())
 
-const cors = require('cors')
+
 const port = 5000;
 app.use(cors())
 app.use(express.json())
@@ -16,6 +16,11 @@ const User = require('./models/user.model')
 const { default: mongoose } = require('mongoose');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+const allowedOrigins = ['http://localhost:3000']; // Add your frontend URL
+app.use(cors({
+  origin: allowedOrigins,
+  credentials: true,
+}));
 
 
 mongoose.connect('mongodb+srv://soraqaharis10in7:LpSH9r4r6prtroWx@cluster0.uqhbk50.mongodb.net/add', {
@@ -129,7 +134,7 @@ app.get('/logout', (req, res) => {
 });
 
 app.get('/todoss', async (req, res)=>{
-    console.log('GET / request received');
+    console.log('GET / ///request received');
     try {
         const todo = await Video.find();
         res.status(200).json(todo)
