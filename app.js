@@ -18,10 +18,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-mongoose.connect('mongodb://localhost:27017/add', {
-    uuseNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: false
+mongoose.connect('mongodb+srv://soraqaharis10in7:LpSH9r4r6prtroWx@cluster0.uqhbk50.mongodb.net/add', {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
 })
 .then(() => console.log('Connected to MongoDB'))
 .catch((err) => console.error('Failed to connect to MongoDB', err));
