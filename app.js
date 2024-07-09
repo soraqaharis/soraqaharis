@@ -18,10 +18,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-mongoose.connect('mongodb+srv://soraqaharis10in7:LpSH9r4r6prtroWx@cluster0.uqhbk50.mongodb.net/add', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
+mongoose.connect('mongodb+srv://soraqaharis10in7:LpSH9r4r6prtroWx@cluster0.uqhbk50.mongodb.net/add')
 .then(() => console.log('Connected to MongoDB'))
 .catch((err) => console.error('Failed to connect to MongoDB', err));
 
@@ -50,7 +47,7 @@ app.post('/addtodo', async (req, res)=>{
         if(existFile){
             return res.status(422).json({message: 'File already exist'})
         }
-            const newFile = new Video({title, description, media, owner})
+            const newFile = new Video({title, description, media})
             await newFile.save()
             res.status(201).json({massage: 'File uploaded'})
         
